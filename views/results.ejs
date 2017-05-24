@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+
+    <% var day1 = 0; %>
+    <% var day2 = 0; %>
+    <% var day3 = 0; %>
+    <% var day4 = 0; %>
+    <% var day5 = 0; %>
+    <% var day6 = 0; %>
+    <% var day7 = 0; %>
+    <% data.statuses.forEach(function(statuse){ %>
+      <% var createdAt = statuse.created_at.split(" "); %>
+      <% if(parseInt(createdAt[2]) == (new Date()).getDate()){ day1 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*1)).getDate()){ day2 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*2)).getDate()){ day3 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*3)).getDate()){ day4 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*4)).getDate()){ day5 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*5)).getDate()){ day6 += 1 }; %>
+      <% if(parseInt(createdAt[2]) == (new Date(new Date()-(1000*60*60*24)*6)).getDate()){ day7 += 1 }; %>
+    <% }); %>
+
+    <% function format(date){ %>
+      <% var day = date.getDate(); %>
+      <% var month = date.getMonth()+1; %>
+      <% var year = date.getFullYear(); %>
+
+      <% return day+"."+month+"."+year; %>
+    <% }; %>
+    </br></br></br></br>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <h4>Search: <%= query.toString() %></h4>
+        <p><%= format(new Date()) %>:  <%= day1 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*1)) %>:  <%= day2 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*2)) %>:  <%= day3 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*3)) %>:  <%= day4 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*4)) %>:  <%= day5 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*5)) %>:  <%= day6 %></p>
+        <p><%= format(new Date(new Date()-(1000*60*60*24)*6)) %>:  <%= day7 %></p>
+      </div>
+      <div class="col-md-4">
+        <canvas id="buyers" width="600" height="400"></canvas>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+
+
+    <script>
+        var dataArr = [];
+
+        function format(date){
+            var day = date.getDate();
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+
+            return day+"."+month+"."+year;
+        };
+        var buyerData = {
+	      labels : [
+	        format(new Date(new Date()-(1000*60*60*24)*6)),
+	        format(new Date(new Date()-(1000*60*60*24)*5)),
+	        format(new Date(new Date()-(1000*60*60*24)*4)),
+	        format(new Date(new Date()-(1000*60*60*24)*3)),
+	        format(new Date(new Date()-(1000*60*60*24)*2)),
+	        format(new Date(new Date()-(1000*60*60*24)*1)),
+	        format(new Date())
+	      ],
+	      datasets : [
+		    {
+			  fillColor : "rgba(172,194,132,0.4)",
+			  strokeColor : "#ACC26D",
+			  pointColor : "#fff",
+			  pointStrokeColor : "#9DB86D",
+			  data : [203,156,99,251,305,247,0]
+		    }
+	      ]
+        };
+        var buyers = document.getElementById('buyers').getContext('2d');
+        new Chart(buyers).Line(buyerData);
+    </script>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="padding-left: 50px"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
+          <a class="navbar-brand" style="padding-left: 80px"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Tweets</a>
+          <a class="navbar-brand" ><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Graph</a>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron" style="background-color:#4099ff">
+      <div class="container">
+        <h3 style="color:white">Related Tweets are shown below :</h1>
+      </div>
+    </div>
+
+    <ul class="media-list" style="padding-left: 140px">
+        <% data.statuses.forEach(function(statuse){ %>
+          <li class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="http://localhost:3000/images/football.jpg" alt="football-icon" hight="40" width="35">
+                </a>
+            </div>
+            <div class="media-body">
+                <h5 class="media-heading">Author: <a href="https://twitter.com/<%= statuse.user.screen_name %>"><%= statuse.user.name %> @<%= statuse.user.screen_name %></a></h5>
+                <h6>date: <%= statuse.created_at.replace("+0000","") %></h6>
+                <p>Tweet: <%= statuse.text %></p>
+            </div>
+          </li>
+        <% }); %>
+    </ul>
+
+  </body>
+</html>
+
+

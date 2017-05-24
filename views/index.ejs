@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/indexstyle.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <form method="post">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" class="form-control" placeholder="@wayneerooney, Rooney, #rooney">
+      </div>
+      <div>
+        <input type="radio" id="and1" name="first" value="1" checked="checked"> AND
+        <input type="radio" id="or1" name="first" value="2"> OR
+      </div>
+      <div class="form-group">
+        <label for="team">Team:</label>
+        <input type="text" name="team" class="form-control" placeholder="@mufc, #mutd">
+      </div>
+      <div>
+        <input type="radio" id="and2" name="second" value="1" checked="checked"> AND
+        <input type="radio" id="or2" name="second" value="2"> OR
+      </div>
+      <div class="form-group">
+        <label for="search-content">Author:</label>
+        <input type="text" name="author" class="form-control" placeholder="Author">
+      </div>
+      <div class="form-group">
+        <label for="search-content">Keyword:</label>
+        <input type="text" name="keyword" class="form-control" placeholder="Keyword">
+      </div>
+      <div class="checkbox">
+        <label>
+        <input type="checkbox" id="checkbox" value="database-option">
+            Query database only
+        </label>
+      </div>
+      <input type="submit" class="btn btn-default" value="Search">
+    </form>
+  </body>
+</html>

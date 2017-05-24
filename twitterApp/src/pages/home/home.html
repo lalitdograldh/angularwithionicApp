@@ -1,0 +1,59 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			Twitter Search
+		</ion-title>
+		<ion-icon name="arrow-round-back" (click) ="arrowBack()" [hidden] ="showsecondCard"></ion-icon>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+	<form method="post" #myForm='ngForm' (ngSubmit)="onSubmit(myForm)" novalidate [hidden] ="showstartCard" >
+
+		<div class="form-group">
+			<ion-label for="name">Name:</ion-label>
+			<input type="text" name="name" id="name" class="form-control" placeholder="@wayneerooney, Rooney, #rooney" required [(ngModel)]="name"/>
+
+		</div>
+		<div>
+			<input type="radio" id="and1" name="first" value="1" checked="checked"> AND
+			<input type="radio" id="or1" name="first" value="2"> OR
+		</div>
+		<div class="form-group">
+			<ion-label for="team">Team:</ion-label>
+			<input type="text" name="team" class="form-control" placeholder="@mufc, #mutd" [(ngModel)]="team">
+		</div>
+		<div>
+			<input type="radio" id="and2" name="second" value="1" checked="checked"> AND
+			<input type="radio" id="or2" name="second" value="2"> OR
+		</div>
+		<div class="form-group">
+			<ion-label for="search-content">Author:</ion-label>
+			<input type="text" name="author" class="form-control" placeholder="Author" [(ngModel)]="author">
+		</div>
+		<div class="form-group">
+			<ion-label for="search-content">Keyword:</ion-label>
+			<input type="text" name="keyword" class="form-control" placeholder="Keyword" [(ngModel)]="keyword">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" id="checkbox" value="database-option">
+				Query database only
+			</label>
+		</div>
+		<button ion-button type="submit"  (click) ="hideCard()" block>Search</button> 
+	</form>
+	<ion-item text-wrap *ngFor="let item of response">
+		<ion-avatar item-left>
+			<a href="#">
+				<img class="media-object" src="http://localhost:3000/images/football.jpg" alt="football-icon" hight="40" width="35">
+			</a>
+		</ion-avatar>            
+		<p >{{item.user.name}}</p>
+		<p >{{item.created_at.replace("+0000","")}}</p>
+		<p>Tweet: {{item.text}}</p>
+	</ion-item>
+
+
+</ion-content>
