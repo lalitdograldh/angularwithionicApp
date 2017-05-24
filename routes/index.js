@@ -92,9 +92,9 @@ router.post('/app',function(req, res) {
         count: 100
     };
     var connection = mysql.createConnection({
-        host     : '111.118.212.86',
-        user     : 'uniqu2vo_twitter',
-        password : 'admin@123',
+        host     : 'localhost',
+        user     : 'root',
+        password : '',
         database : 'uniqu2vo_twiiterapp'
     });
     connection.connect(function(err,callback){
